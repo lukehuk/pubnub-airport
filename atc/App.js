@@ -1,14 +1,25 @@
-import { AppLoading } from 'expo';
-import { StatusBar } from 'react-native';
-import { Asset } from 'expo-asset';
-import * as Font from 'expo-font';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { ScreenOrientation } from 'expo';
+import { AppLoading, ScreenOrientation } from 'expo'
+import { StatusBar, StyleSheet, View } from 'react-native'
+import { Asset } from 'expo-asset'
+import * as Font from 'expo-font'
+import React, { useState } from 'react'
 import GameScreen from "./components/GameScreen"
+import { createStore } from 'redux'
+import atcApp from './controllers/reducers'
+import { Provider } from "react-redux"
+import * as Broadcaster from "../airfield/broadcaster"
+
 
 export default function App(props) {
-    const [isLoadingComplete, setLoadingComplete] = useState(false);
+    const [isLoadingComplete, setLoadingComplete] = useState(false)
+
+    const store = createStore(atcApp)
+
+    const broadcaster = Broadcaster.init({
+        publishKey: PUBLISH_KEY,
+        subscribeKey: SUBSCRIBE_KEY,
+        store
+    })
 
     if (!isLoadingComplete && !props.skipLoadingScreen) {
         return (
@@ -17,14 +28,16 @@ export default function App(props) {
                 onError={handleLoadingError}
                 onFinish={() => handleFinishLoading(setLoadingComplete)}
             />
-        );
+        )
     } else {
         return (
-            <View style={styles.container}>
-                <StatusBar hidden/>
-                <GameScreen/>
-            </View>
-        );
+            <Provider store={store}>
+                <View style={styles.container}>
+                    <StatusBar hidden/>
+                    <GameScreen broadcaster={broadcaster}/> //TODO
+                </View>
+            </Provider>
+        )
     }
 }
 
@@ -47,24 +60,24 @@ async function loadAsync() {
             // remove this if you are not using it in your app
             'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         }),
-    ]);
+    ])
 }
 
 function handleLoadingError(error) {
     // In this case, you might want to report the error to your error reporting
     // service, for example Sentry
-    console.warn(error);
+    console.warn(error)
 }
 
 function handleFinishLoading(setLoadingComplete) {
-    setLoadingComplete(true);
+    setLoadingComplete(true)
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+})

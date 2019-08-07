@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import CommandButton from "./CommandButton"
+import { PlaneCommands } from "../controllers/actions"
 
 const images = {
     leftArrow: {
@@ -19,15 +20,37 @@ const images = {
 
 export default class CommandBar extends Component {
     render() {
+        let commandsDisabled = this.props.planeSelected
+        let landingCommandDisabled = this.props.planeSelected && this.props.planeInFinalApproach
         return (
             <View style={styles.commandBar}>
-                <CommandButton style={styles.commandButton} imageSource={images.leftArrow.uri}/>
+                <CommandButton
+                    style={styles.commandButton}
+                    disabled={commandsDisabled}
+                    onPress={this.onCommandIssued(PlaneCommands.DOWNWIND)}
+                    imageSource={images.leftArrow.uri}
+                />
                 <View style={styles.separator} />
-                <CommandButton style={styles.commandButton} imageSource={images.downArrow.uri}/>
+                <CommandButton
+                    style={styles.commandButton}
+                    disabled={commandsDisabled}
+                    onPress={this.onCommandIssued(PlaneCommands.BASE)}
+                    imageSource={images.downArrow.uri}
+                />
                 <View style={styles.separator} />
-                <CommandButton style={styles.commandButton} imageSource={images.noEntry.uri}/>
+                <CommandButton
+                    style={styles.commandButton}
+                    disabled={commandsDisabled}
+                    onPress={this.onCommandIssued(PlaneCommands.LEAVE)}
+                    imageSource={images.noEntry.uri}
+                />
                 <View style={styles.separator} />
-                <CommandButton style={styles.commandButton} imageSource={images.thumbGreen.uri}/>
+                <CommandButton
+                    style={styles.commandButton}
+                    disabled={landingCommandDisabled}
+                    onPress={this.onCommandIssued(PlaneCommands.CLEARED)}
+                    imageSource={images.thumbGreen.uri}
+                />
             </View>
         );
     }

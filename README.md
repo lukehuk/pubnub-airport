@@ -3,7 +3,11 @@
 Prerequisites
 	Node
    npm install pubnub
+   npm install redux
+   npm install react-redux
 
+	file names are a mess
+	split index and app.js
 
 Airfield
  - Settings

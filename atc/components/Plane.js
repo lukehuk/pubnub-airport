@@ -2,44 +2,23 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity  } from 'react-native'
 
 export default class Plane extends Component {
-    componentDidMount() {
-        this.props.onRef(this)
-    }
-
-    componentWillUnmount() {
-        this.props.onRef(undefined)
-    }
-
-    state = {
-        selected: false,
-        left: 0,
-        top: 0
-    };
-
-    setPlanePosition = (x, y) => {
-        this.setState({
-            left: x,
-            top: y
-        })
-    }
-
     onPlanePressed = () => {
-        this.setState({
-            selected: true
-        })
+        this.props.onPlaneSelect(this.props.planeName)
     }
 
     render() {
-        let planeColor = this.state.selected ? 'yellow' : 'grey';
-
+        let planeColor = this.state.planeSelected ? 'yellow' : 'grey';
+        let fuelPercent = Math.floor((this.props.planeData.remainingFuel / this.props.planeData.fuelCapacity) * 100)
+        let left = this.props.planeData.currentX
+        let top = this.props.planeData.currentY
         return (
-            <TouchableOpacity  onPress={this.onPlanePressed} style={[styles.planeContainer, {left: this.state.left, top: this.state.top}]}>
+            <TouchableOpacity onPress={this.onPlanePressed} style={[styles.planeContainer, {left: `${left}%`, top: `${top}%`}]}>
                 <View style={styles.planeDetails}>
                     <Text style={styles.planeName}>{this.props.planeName}</Text>
                 </View>
                 <View style={[styles.plane, {backgroundColor: planeColor}]}/>
                 <View style={styles.fuelIndicator}>
-                    <View style={[styles.fuelLevel, {width: `${this.props.fuelPercent}%`}]}/>
+                    <View style={[styles.fuelLevel, {width: `${fuelPercent}%`}]}/>
                 </View>
             </TouchableOpacity >
         )

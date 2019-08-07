@@ -29,8 +29,8 @@ function generateNewPlane(navigator) {
         destinationY: startDestination.y,
         fuel: STARTING_FUEL,
         currentAction: "Flying",
-        lastContactReceived: "",
-        lastContactSent: "",
+        lastAtcTransmission: "",
+        lastPlaneTransmission: "",
     }
     planes.push(plane)
 }

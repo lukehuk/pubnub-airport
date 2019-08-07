@@ -10,7 +10,7 @@ export default class ComHistory extends Component {
                 </View>
                 <View style={styles.content}>
                     <Text style={styles.title}>{this.props.title}</Text>
-                    <Text style={styles.lastMessage}>{this.props.lastMessage}</Text>
+                    <Text style={styles.lastMessage}>{this.props.lastMessage === undefined ? '-' : this.props.lastMessage}</Text>
                 </View>
 
 
