@@ -1,5 +1,10 @@
 # pubnub-airport
 
+Prerequisites
+	Node
+   npm install pubnub
+
+
 Airfield
  - Settings
  	- Difficulty = Plane generation frequency = PGen
@@ -30,3 +35,12 @@ Features to add/consider
  - Score
  - Multi ATC support
  - Multi Airfield support
+ 
+ 
+ 
+ 
+ t's finally happened: nearly 4 years after the import keyword was introduced in ES6, Node.js introduced experimental support for ES6 imports and exports. In Node.js 12, you can use import and export in your project if you do both of the below items.
+ 
+ 1) Add the --experimental-modules flag when running Node.js
+ 
+ 2) Use the .mjs extension or set "type": "module" in your package.json.

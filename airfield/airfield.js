@@ -1,68 +1,28 @@
-PubNub = require('pubnub');
+"use strict";
 
-const PUBLISH_KEY = "";
-const SUBSCRIBE_KEY = "";
-const PLANE_GEN_FREQ_SEC = 5;
+import * as Airspace from "./airspace.js";
+import * as Broadcaster from "./broadcaster.js"
+import * as FlightNavigator from "./navigator.js";
+
+const AIRFIELD = {
+    width: 160,
+    height: 90,
+    base: { x: 20, y: 70 },
+    final: { x: 20, y: 20 },
+    runwayStart: { x: 30, y: 20 },
+    runwayEnd: { x: 70, y: 20 },
+    crosswind: { x: 80, y: 20 },
+    downwind: { x: 80, y: 70 }
+}
+
+const PUBLISH_KEY = "pub-c-8138ca47-d28d-4b2d-924b-ea246f1dd974";
+const SUBSCRIBE_KEY = "sub-c-1bffe06a-b3a0-11e9-839f-e2cc45fa663b";
 const PUBLISH_FREQUENCY_SEC = 1;
 
-var pubnub = new PubNub({
-    publishKey : PUBLISH_KEY,
-    subscribeKey : SUBSCRIBE_KEY
+let broadcaster = Broadcaster.init({
+    publishKey: PUBLISH_KEY,
+    subscribeKey: SUBSCRIBE_KEY,
+    broadcastFrequencyMS: PUBLISH_FREQUENCY_SEC * 1000
 })
-
-function createPlane() {
- var plane =
-{
-                planeId: "FOO",
-                positionX: 0,
-                positionY: 0,
-                heading: "SE",
-                fuel: 500,
-                currentAction: "Flying",
-                commandHistory: []
-            }
-            publish(plane);
-
-            }
-
-updatePlane()
-
-updatePlanes()
-
-commandReceived(command) {
-
-}
-    function publishPlaneData(planeData) {
-        var publishConfig = {
-            channel : "airfield-A",
-            message: planeData
-        }
-        pubnub.publish(publishConfig, function(status, response) {
-            console.log(status, response);
-        })
-    }
-
-    pubnub.addListener({
-        status: function(statusEvent) {
-            if (statusEvent.category === "PNConnectedCategory") {
-                publish();
-            }
-        },
-        message: function(msg) {
-            console.log(msg.message);
-        },
-        presence: function(presenceEvent) {
-            // handle presence
-        }
-    })
-    console.log("Subscribing..");
-    pubnub.subscribe({
-        channels: ['airfield-A']
-    });
-
-// repeat with the interval of 2 seconds
-let timerId = setInterval(() => publish(), 2000);
-
-console.log("publishing")
-// after 5 seconds stop
-setTimeout(() => { clearInterval(timerId); console.log('stop'); }, 5000);
+let navigator = FlightNavigator.init(AIRFIELD);
+Airspace.openAirspace(broadcaster, navigator)
