@@ -1,68 +1,98 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity  } from 'react-native'
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class Plane extends Component {
-    onPlanePressed = () => {
-        this.props.onPlaneSelect(this.props.planeName)
-    }
+  onPlanePressed() {
+    this.props.onPlaneSelect(this.props.planeName);
+  }
 
-    render() {
-        let planeColor = this.state.planeSelected ? 'yellow' : 'grey';
-        let fuelPercent = Math.floor((this.props.planeData.remainingFuel / this.props.planeData.fuelCapacity) * 100)
-        let left = this.props.planeData.currentX
-        let top = this.props.planeData.currentY
-        return (
-            <TouchableOpacity onPress={this.onPlanePressed} style={[styles.planeContainer, {left: `${left}%`, top: `${top}%`}]}>
-                <View style={styles.planeDetails}>
-                    <Text style={styles.planeName}>{this.props.planeName}</Text>
-                </View>
-                <View style={[styles.plane, {backgroundColor: planeColor}]}/>
-                <View style={styles.fuelIndicator}>
-                    <View style={[styles.fuelLevel, {width: `${fuelPercent}%`}]}/>
-                </View>
-            </TouchableOpacity >
-        )
-    }
+  render() {
+    const plane = this.props.planeData;
+    const planeColor = this.props.planeSelected ? 'yellow' : 'grey';
+    const fuelPercent = Math.floor((plane.remainingFuel / plane.fuelCapacity) * 100);
+    const left = plane.currentX;
+    const top = plane.currentY;
+    const opacity = plane.currentAction === 'landing' ? plane.currentX / plane.destinationX : 1;
+
+    // console.log("PLANE PROPS")
+    // console.log(this.props)
+    console.log('CURRENT X:' + plane.currentX + ' Y:' + plane.currentY);
+    console.log('DESTINATION X:' + plane.destinationX + ' Y:' + plane.destinationY);
+    console.log('ACTION: ' + plane.currentAction);
+
+    return (
+      <TouchableOpacity onPress={this.onPlanePressed} style={[styles.planeContainer, {left: `${left}%`, top: `${top}%`, opacity: opacity}]}>
+        <View style={this.props.planeSelected ? styles.planePath : {}}/>
+        <View style={styles.planeDetails}>
+          <Text style={styles.planeName}>{this.props.planeName}</Text>
+        </View>
+        <View style={[styles.plane, {backgroundColor: planeColor}]}/>
+        <View style={styles.fuelIndicator}>
+          <View style={[styles.fuelLevel, {width: `${fuelPercent}%`}]}/>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  static get propTypes() {
+    return {
+      planeData: PropTypes.object,
+      onPlaneSelect: PropTypes.func,
+      planeName: PropTypes.string,
+      planeSelected: PropTypes.bool
+
+    };
+  }
 }
 
 const styles = StyleSheet.create({
-    planeContainer:{
-        position: 'absolute',
-        top: 200,
-        left: 200,
-        width:30,
-        height:30,
-    },
-    planeDetails: {
-        justifyContent : 'center',
-        alignItems: 'center',
-        width:30,
-        height:3,
-        marginBottom:5
-    },
-    planeName: {
-        fontSize: 8,
-    },
-    fuelIndicator: {
-        backgroundColor: 'grey',
-        width:30,
-        height:3,
-        marginTop:2
-    },
-    fuelLevel: {
-        backgroundColor: 'red',
-        width: '50%',
-        height: '100%',
-    },
-    plane: {
-        backgroundColor: 'yellow',
-        borderRadius: 30,
-        borderColor: 'grey',
-        borderRightColor: 'white',
-        borderLeftColor: 'red',
-        borderWidth: 3,
-        width: '100%',
-        height: '100%',
-    }
-})
+  planeContainer: {
+    position: 'absolute',
+    marginLeft: -15,
+    marginTop: -19,
+    width: 30,
+    height: 30,
+  },
+  planeDetails: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 3,
+    marginBottom: 5
+  },
+  planeName: {
+    fontSize: 8,
+  },
+  fuelIndicator: {
+    backgroundColor: 'grey',
+    width: 30,
+    height: 3,
+    marginTop: 2
+  },
+  fuelLevel: {
+    backgroundColor: 'red',
+    width: '50%',
+    height: '100%',
+  },
+  plane: {
+    backgroundColor: 'yellow',
+    borderRadius: 30,
+    borderColor: 'grey',
+    borderWidth: 3,
+    width: '100%',
+    height: '100%',
+  },
+  planePath: {
+    position: 'absolute',
+    width: '0.1%',
+    top: '20%',
+    left: '20%',
+    marginTop: 10,
+    transform: [{rotate: '45deg'}, {scaleX: 201}],
+    borderColor: '#5f636847',
+    borderStyle: 'solid',
+    borderWidth: 2
+  }
+});
 

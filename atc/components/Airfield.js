@@ -1,69 +1,61 @@
-import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
 
 export default class Airfield extends Component {
-    render() {
-        return (
-            <View style={styles.airfield}>
-                    <View style={styles.finalApproach}>
-                    </View>
-                    <View style={styles.trafficRoute}
-
-                    />
-
-                    <View style={styles.runway}>
-
-                        <View style={styles.runwayPaint}/>
-                    </View>
-
-            </View>
-        )
-    }
+  render() {
+    return (
+      <View style={styles.airfield}>
+        <View style={styles.finalApproach}/>
+        <View style={styles.trafficRoute}/>
+        <View style={styles.runway}>
+          <View style={styles.runwayPaint}/>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    airfield: {
-        flex: 1,
-        backgroundColor: '#8aa81c'
-    },
-    trafficRoute: {
-        // width: '100%',
-        position: 'relative',
-        height: '60%',
-        marginLeft: '10%',
-        marginRight: '10%',
-        marginTop: '10%',
-        marginBottom: '10%',
-        borderWidth: 3,
-        borderColor: 'black',
-        borderRadius: 5,
-        borderStyle: 'dashed'
-    },
-    finalApproach: {
-        position: 'absolute',
-        top: 250,
-        left: 70,
-        width: 130,
-        height: 50,
-        backgroundColor: '#a9b322',
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10
-    },
-    runway: {
-        position: 'absolute',
-        top: 250,
-        left: 200,
-        width: 300,
-        height: 50,
-        backgroundColor: 'black'
-    },
-    runwayPaint: {
-        marginTop: 22,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 5,
-        borderStyle: 'dashed'
-    }
-})
+  airfield: {
+    flex: 1,
+    backgroundColor: '#8aa81c'
+  },
+  trafficRoute: {
+    position: 'relative',
+    height: '60%',
+    marginLeft: '12%',
+    marginRight: '12%',
+    top: '20%',
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 5,
+    borderStyle: 'dashed'
+  },
+  finalApproach: {
+    position: 'absolute',
+    top: '74%',
+    left: '12%',
+    width: '21%',
+    height: '12%',
+    backgroundColor: '#a9b322',
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50
+  },
+  runway: {
+    position: 'absolute',
+    top: '74%',
+    left: '33%',
+    width: '45%',
+    height: '12%',
+    backgroundColor: 'black',
+    borderRadius: 2,
+  },
+  runwayPaint: {
+    marginTop: '6%',
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 5,
+    borderStyle: 'dashed'
+  }
+});
 

@@ -1,34 +1,24 @@
-/*
- * action types
- */
+// Actions
+export const SELECT_PLANE = 'SELECT_PLANE';
+export const ISSUE_COMMAND = 'ISSUE_COMMAND';
+export const UPDATE_PLANE = 'UPDATE_PLANE';
 
-export const SELECT_PLANE = 'SELECT_PLANE'
-export const ISSUE_COMMAND = 'ISSUE_COMMAND'
-export const UPDATE_PLANE = 'UPDATE_PLANE'
+export const PLANE_COMMANDS = {
+  DOWNWIND: 'DOWNWIND',
+  BASE: 'BASE',
+  LEAVE: 'LEAVE',
+  CLEARED: 'CLEARED'
+};
 
-/*
- * other constants
- */
-
-export const PlaneCommands = {
-    DOWNWIND: 'DOWNWIND',
-    BASE: 'BASE',
-    LEAVE: 'LEAVE',
-    CLEARED: 'CLEARED'
-}
-
-/*
- * action creators
- */
-
+// Action creators
 export function selectPlane(planeName) {
-    return { type: SELECT_PLANE, planeName }
+  return {type: SELECT_PLANE, planeName};
 }
 
 export function issueCommand(command) {
-    return { type: ISSUE_COMMAND, command }
+  return {type: ISSUE_COMMAND, command};
 }
 
 export function updatePlane(plane) {
-    return { type: UPDATE_PLANE, plane}
+  return {type: UPDATE_PLANE, plane};
 }
