@@ -1,28 +1,33 @@
-"use strict";
+import * as Airspace from './airspace.js';
+import * as Broadcaster from './broadcaster.js';
+import * as FlightNavigator from './navigator.js';
 
-import * as Airspace from "./airspace.js";
-import * as Broadcaster from "./broadcaster.js"
-import * as FlightNavigator from "./navigator.js";
+const PUBLISH_KEY = '';
+const SUBSCRIBE_KEY = '';
+const PUBLISH_FREQUENCY_MS = 1000;
+const PLANE_GEN_FREQ_MS = 5000;
 
+// Percentage coordinates
 const AIRFIELD = {
-    width: 160,
-    height: 90,
-    base: { x: 20, y: 70 },
-    final: { x: 20, y: 20 },
-    runwayStart: { x: 30, y: 20 },
-    runwayEnd: { x: 70, y: 20 },
-    crosswind: { x: 80, y: 20 },
-    downwind: { x: 80, y: 70 }
-}
+  base: {x: 12, y: 20},
+  final: {x: 12, y: 80},
+  runwayStart: {x: 20, y: 80},
+  runwayMiddle: {x: 50, y: 80},
+  upwind: {x: 88, y: 80},
+  crosswind: {x: 88, y: 80},
+  downwind: {x: 88, y: 20},
+};
 
-const PUBLISH_KEY = "pub-c-8138ca47-d28d-4b2d-924b-ea246f1dd974";
-const SUBSCRIBE_KEY = "sub-c-1bffe06a-b3a0-11e9-839f-e2cc45fa663b";
-const PUBLISH_FREQUENCY_SEC = 1;
+const navigator = FlightNavigator.init(AIRFIELD);
 
-let broadcaster = Broadcaster.init({
-    publishKey: PUBLISH_KEY,
-    subscribeKey: SUBSCRIBE_KEY,
-    broadcastFrequencyMS: PUBLISH_FREQUENCY_SEC * 1000
-})
-let navigator = FlightNavigator.init(AIRFIELD);
-Airspace.openAirspace(broadcaster, navigator)
+const broadcaster = Broadcaster.init({
+  publishKey: PUBLISH_KEY,
+  subscribeKey: SUBSCRIBE_KEY,
+  broadcastFrequencyMS: PUBLISH_FREQUENCY_MS,
+});
+
+Airspace.openAirspace(
+    broadcaster,
+    navigator,
+    PLANE_GEN_FREQ_MS
+);
