@@ -6,8 +6,8 @@ function genStartPosition() {
   return () => {
     const angle = Math.random() * Math.PI * 2;
     return {
-      x: (Math.cos(angle) * (50 + MAX_DISTANCE_PERCENT_OFF_MAP)) + 50,
-      y: (Math.sin(angle)* (50 + MAX_DISTANCE_PERCENT_OFF_MAP)) + 50
+      x: Math.floor((Math.cos(angle) * (50 + MAX_DISTANCE_PERCENT_OFF_MAP)) + 50),
+      y: Math.floor((Math.sin(angle)* (50 + MAX_DISTANCE_PERCENT_OFF_MAP)) + 50)
     };
   };
 }

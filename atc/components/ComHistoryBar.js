@@ -19,7 +19,7 @@ export default class ComHistoryBar extends Component {
         <View style={{flex: 1, backgroundColor: 'orange'}}>
           <ComHistory
             title={'Last received:'}
-            imageSource={images.incomingCall.uri}
+            imageSource={images.incomingCall}
             lastMessage={this.props.lastPlaneTransmission}
           />
         </View>
@@ -27,7 +27,7 @@ export default class ComHistoryBar extends Component {
         <View style={{flex: 1, backgroundColor: 'pink'}}>
           <ComHistory
             title={'Last sent:'}
-            imageSource={images.outgoingCall.uri}
+            imageSource={images.outgoingCall}
             lastMessage={this.props.lastAtcTransmission}
           />
         </View>

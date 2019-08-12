@@ -36,7 +36,7 @@ function generateNewPlane(navigator) {
     destinationY: startDestination.y,
     fuelCapacity: STARTING_FUEL,
     remainingFuel: STARTING_FUEL,
-    currentAction: 'Flying',
+    currentAction: 'flying',
     lastAtcTransmission: '-',
     lastPlaneTransmission: planeName + ' awaiting instructions for landing.',
   };
@@ -124,11 +124,11 @@ function updatePlanes(broadcaster, navigator) {
   planes.map(function(plane) {
     const latestCommand = broadcaster.getLatestPlaneCommand(plane.planeName);
     const updatedPlane = updatePlane(plane, navigator, latestCommand);
-    updatedPlane.currentAction = 'landed';
     broadcaster.broadcastPlanePosition(updatedPlane);
+    // TODO if plane is landed, remove maybe increment some counter.
+    // TODO if plane has crashed, end game
     return plane;
   });
-  planes.filter();
 }
 
 // TODO

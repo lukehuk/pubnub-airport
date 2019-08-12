@@ -13,6 +13,7 @@ const PUBLISH_KEY = '';
 const SUBSCRIBE_KEY = '';
 
 export default function App() {
+  // TODO investigate
   YellowBox.ignoreWarnings(['Setting a timer']);
   const _console = {...console};
   console.warn = (message) => {

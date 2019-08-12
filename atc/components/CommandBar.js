@@ -29,28 +29,28 @@ export default class CommandBar extends Component {
           style={styles.commandButton}
           disabled={commandsDisabled}
           onPress={this.props.onCommandIssued(PLANE_COMMANDS.DOWNWIND)}
-          imageSource={images.leftArrow.uri}
+          imageSource={images.leftArrow}
         />
         <View style={styles.separator} />
         <CommandButton
           style={styles.commandButton}
           disabled={commandsDisabled}
           onPress={this.props.onCommandIssued(PLANE_COMMANDS.BASE)}
-          imageSource={images.downArrow.uri}
+          imageSource={images.downArrow}
         />
         <View style={styles.separator} />
         <CommandButton
           style={styles.commandButton}
           disabled={commandsDisabled}
           onPress={this.props.onCommandIssued(PLANE_COMMANDS.LEAVE)}
-          imageSource={images.noEntry.uri}
+          imageSource={images.noEntry}
         />
         <View style={styles.separator} />
         <CommandButton
           style={styles.commandButton}
           disabled={landingCommandDisabled}
           onPress={this.props.onCommandIssued(PLANE_COMMANDS.CLEARED)}
-          imageSource={images.thumbGreen.uri}
+          imageSource={images.thumbGreen}
         />
       </View>
     );

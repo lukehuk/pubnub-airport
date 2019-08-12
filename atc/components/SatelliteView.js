@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import Plane from './Plane';
 import Airfield from './Airfield';
 import PropTypes from 'prop-types';
+import PlaneDestinationMarker from './PlaneDestinationMarker';
 
 export default class SatelliteView extends Component {
   generatePlaneList(planeNames) {
@@ -19,10 +20,17 @@ export default class SatelliteView extends Component {
     return planeList;
   }
 
+  generatePlaneDestinationMarker() {
+    if (this.props.selectedPlane !== '') {
+      return <PlaneDestinationMarker planeData={this.props.planes[this.props.selectedPlane]}/>;
+    }
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
         <Airfield/>
+        {this.generatePlaneDestinationMarker()}
         {this.generatePlaneList(Object.keys(this.props.planes))}
       </View>
     );
@@ -31,8 +39,8 @@ export default class SatelliteView extends Component {
   static get propTypes() {
     return {
       onPlaneSelect: PropTypes.func,
-      planes: PropTypes.array,
-      selectedPlane: PropTypes.string()
+      planes: PropTypes.object,
+      selectedPlane: PropTypes.string
     };
   }
 }

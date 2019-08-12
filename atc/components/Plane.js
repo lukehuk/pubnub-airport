@@ -22,8 +22,9 @@ export default class Plane extends Component {
     console.log('ACTION: ' + plane.currentAction);
 
     return (
-      <TouchableOpacity onPress={this.onPlanePressed} style={[styles.planeContainer, {left: `${left}%`, top: `${top}%`, opacity: opacity}]}>
-        <View style={this.props.planeSelected ? styles.planePath : {}}/>
+      <TouchableOpacity
+        onPress={() => this.onPlanePressed()}
+        style={[styles.container, {left: `${left}%`, top: `${top}%`, opacity: opacity}]}>
         <View style={styles.planeDetails}>
           <Text style={styles.planeName}>{this.props.planeName}</Text>
         </View>
@@ -47,7 +48,7 @@ export default class Plane extends Component {
 }
 
 const styles = StyleSheet.create({
-  planeContainer: {
+  container: {
     position: 'absolute',
     marginLeft: -15,
     marginTop: -19,
@@ -82,17 +83,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: '100%',
     height: '100%',
-  },
-  planePath: {
-    position: 'absolute',
-    width: '0.1%',
-    top: '20%',
-    left: '20%',
-    marginTop: 10,
-    transform: [{rotate: '45deg'}, {scaleX: 201}],
-    borderColor: '#5f636847',
-    borderStyle: 'solid',
-    borderWidth: 2
   }
 });
 

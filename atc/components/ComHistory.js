@@ -7,7 +7,7 @@ export default class ComHistory extends Component {
     return (
       <View style={styles.comHistory} flexDirection='row'>
         <View style={styles.icon}>
-          <Image style={styles.iconImage} source={this.props.imageSource}/>
+          <Image style={styles.iconImage} source={this.props.imageSource.uri}/>
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>{this.props.title}</Text>
@@ -19,9 +19,9 @@ export default class ComHistory extends Component {
 
   static get propTypes() {
     return {
-      imageSource: PropTypes.string,
-      title: PropTypes.array,
-      lastMessage: PropTypes.bool
+      imageSource: PropTypes.object,
+      title: PropTypes.string,
+      lastMessage: PropTypes.string
     };
   }
 }

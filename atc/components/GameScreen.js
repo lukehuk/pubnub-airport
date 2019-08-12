@@ -54,8 +54,8 @@ class GameScreen extends Component {
   static get propTypes() {
     return {
       selectedPlane: PropTypes.string,
-      planes: PropTypes.array,
-      onPlaneSelect: PropTypes.bool,
+      planes: PropTypes.object,
+      onPlaneSelect: PropTypes.func,
       broadcaster: PropTypes.object
     };
   }

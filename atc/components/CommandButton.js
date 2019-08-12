@@ -14,7 +14,7 @@ export default class CommandButton extends Component {
           <View style={styles.button}>
             <Image
               style={[styles.buttonImage, {opacity: commandOpacity}]}
-              source={this.props.imageSource}
+              source={this.props.imageSource.uri}
             />
           </View>
         </TouchableNativeFeedback>
@@ -27,7 +27,7 @@ export default class CommandButton extends Component {
     return {
       onPress: PropTypes.func,
       disabled: PropTypes.bool,
-      imageSource: PropTypes.string
+      imageSource: PropTypes.object
     };
   }
 }

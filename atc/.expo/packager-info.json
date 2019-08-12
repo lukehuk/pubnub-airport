@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 10648,
+  "packagerPid": 9844,
   "expoServerNgrokUrl": "https://tf-spj.anonymous.atc.exp.direct",
   "packagerNgrokUrl": "https://packager.tf-spj.anonymous.atc.exp.direct",
-  "ngrokPid": 13008,
+  "ngrokPid": 8056,
   "webpackServerPort": null
 }
