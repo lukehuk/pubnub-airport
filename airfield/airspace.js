@@ -45,6 +45,9 @@ function generateNewPlane(navigator) {
 
 // Updates plane information based on the latest ATC command
 function handleATCCommand(latestCommand, plane, navigator) {
+  if (latestCommand === undefined) {
+    return plane;
+  }
   const name = plane.planeName;
   switch (latestCommand) {
     case 'BASE':
@@ -68,6 +71,7 @@ function handleATCCommand(latestCommand, plane, navigator) {
       plane.currentAction = 'leaving';
       break;
     default:
+      console.log("Received unknown command: " + latestCommand)
       return plane;
   }
   const destination = navigator.determineDestinationFromAction(

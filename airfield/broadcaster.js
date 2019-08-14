@@ -1,7 +1,7 @@
 import PubNub from 'pubnub';
 
-const PUB_CHANNEL = 'airfield-A';
-const SUB_CHANNEL = 'airfield-A-atc';
+const PUB_CHANNEL = 'airfield-alpha';
+const SUB_CHANNEL = 'airfield-alpha-atc';
 
 const receivedPlaneCommands = {};
 
@@ -34,6 +34,7 @@ export function init(config) {
   pubnub.addListener({
     status: (statusEvent) => {},
     message: (message) => {
+      console.log(message.message)
       receivedPlaneCommands[message.message.planeName] = message.message.command;
     },
     presence: (presenceEvent) => {}
