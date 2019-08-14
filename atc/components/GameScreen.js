@@ -23,7 +23,7 @@ class GameScreen extends Component {
 
     return (
       <View style={{flex: 1, width: '100%', flexDirection: 'column'}}>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, zIndex: 10}}>
           <ComHistoryBar
             lastAtcTransmission={isPlaneSelected ? selectedPlaneData.lastAtcTransmission : 'N/A'}
             lastPlaneTransmission={isPlaneSelected ? selectedPlaneData.lastPlaneTransmission: 'N/A'}
@@ -35,6 +35,7 @@ class GameScreen extends Component {
               <SatelliteView
                 planes={planes}
                 onPlaneSelect={onPlaneSelect}
+                isPlaneSelected={isPlaneSelected}
                 selectedPlane={selectedPlaneName}
               />
             </View>
@@ -70,6 +71,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    deselectPlane: () => {
+        dispatch(selectPlane());
+    },
     onPlaneSelect: (planeName) => {
       dispatch(selectPlane(planeName));
     }

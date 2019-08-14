@@ -1,19 +1,51 @@
 import PubNub from 'pubnub';
 
-const PUB_CHANNEL = 'airfield-alpha';
-const SUB_CHANNEL = 'airfield-alpha-atc';
+const PLANES_PUB_CHANNEL = 'airfield-alpha';
+const GAME_EVENT_PUB_CHANNEL = 'airfield-alpha-events';
+const ATC_SUB_CHANNEL = 'airfield-alpha-atc';
 
 const receivedPlaneCommands = {};
+let gameScore = 0;
 
-// Broadcasts data about a plane
+// Publish a message to the specified pubnub channel
+function publish(pubnub, channel, data) {
+  pubnub.publish({
+    channel: channel,
+    message: data
+  }, (status, response) => {
+    console.log(channel, status, response);
+  });
+}
+
+// Returns a function that, when called with plane data, broadcasts the data
 function broadcastPlaneData(pubnub) {
   return (planeData) => {
-    pubnub.publish({
-      channel: PUB_CHANNEL,
-      message: planeData
-    }, (status, response) => {
-      console.log(status, response); // TODO handle error
-    });
+    publish(pubnub, PLANES_PUB_CHANNEL, planeData);
+  };
+}
+
+// Publishes a game event which includes the score and whether the end game has occurred
+function publishEvent(pubnub, didCrash) {
+  publish(pubnub, GAME_EVENT_PUB_CHANNEL, {
+    score: gameScore,
+    crashed: didCrash
+  });
+}
+
+// Returns a function to be called when a plane lands. We increment the score and publish an event
+function planeLanded(pubnub) {
+  return () => {
+    gameScore = gameScore + 1;
+    console.log('Plane landed! Current score: ', gameScore);
+    publishEvent(pubnub, false);
+  };
+}
+
+// Returns a function to be called when a plane crashes. Endgame triggered by publishing an event
+function planeCrashed(pubnub) {
+  return () => {
+    console.log('A plane has crashed! Game over. Final score: ', gameScore);
+    publishEvent(pubnub, true);
   };
 }
 
@@ -30,25 +62,24 @@ export function init(config) {
     subscribeKey: config.subscribeKey
   });
 
-  // TODO handle error
   pubnub.addListener({
-    status: (statusEvent) => {},
     message: (message) => {
-      console.log(message.message)
+      console.log(message.message);
       receivedPlaneCommands[message.message.planeName] = message.message.command;
     },
-    presence: (presenceEvent) => {}
   });
 
-  console.log('Subscribing to ' + SUB_CHANNEL);
+  console.log('Subscribing to ' + ATC_SUB_CHANNEL);
 
   pubnub.subscribe({
-    channels: [SUB_CHANNEL]
+    channels: [ATC_SUB_CHANNEL]
   });
 
   return {
     broadcastFrequencyMS: config.broadcastFrequencyMS,
     broadcastPlanePosition: broadcastPlaneData(pubnub),
+    planeLanded: planeLanded(pubnub),
+    planeCrashed: planeCrashed(pubnub),
     getLatestPlaneCommand
   };
 }

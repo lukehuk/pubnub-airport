@@ -1,8 +1,8 @@
 import PubNub from 'pubnub';
-import {updatePlane} from './actions';
+import {updatePlanes} from './actions';
 
-const PUB_CHANNEL = 'airfield-A-atc';
-const SUB_CHANNEL = 'airfield-A';
+const PUB_CHANNEL = 'airfield-alpha-atc';
+const SUB_CHANNEL = 'airfield-alpha';
 
 function issuePlaneWithCommand(pubnub) {
   return (planeName, command) => {
@@ -24,7 +24,7 @@ export function init(config) {
   pubnub.addListener({
     status: (statusEvent) => {},
     message: (message) => {
-      config.store.dispatch(updatePlane(message.message));
+      config.store.dispatch(updatePlanes(message.message));
     },
     presence: (presenceEvent) => {}
   });

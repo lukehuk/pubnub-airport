@@ -14,11 +14,9 @@ function genStartPosition() {
 
 // Generate a random position on the airfield
 function genStartDestinationPosition() {
-  return () => {
-    return {
-      x: Math.floor(Math.random() * 100),
-      y: Math.floor(Math.random() * 100)
-    };
+  return {
+    x: Math.floor(Math.random() * 100),
+    y: Math.floor(Math.random() * 100)
   };
 }
 
@@ -81,7 +79,7 @@ function determineNewAction() {
 export function init(airfield) {
   return {
     genStartPosition: genStartPosition(),
-    genStartDestinationPosition: genStartDestinationPosition(),
+    genStartDestinationPosition,
     determineDestinationFromAction: determineDestinationFromAction(airfield),
     determineNewAction: determineNewAction()
   };

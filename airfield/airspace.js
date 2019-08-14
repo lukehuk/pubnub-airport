@@ -1,5 +1,5 @@
-const STARTING_FUEL = 100;
-const planes = [];
+const STARTING_FUEL = 500;
+let planes = [];
 
 // Generates a random uppercase ASCII character code
 function getLetterCharCode() {
@@ -71,7 +71,7 @@ function handleATCCommand(latestCommand, plane, navigator) {
       plane.currentAction = 'leaving';
       break;
     default:
-      console.log("Received unknown command: " + latestCommand)
+      console.log('Received unknown command: ' + latestCommand);
       return plane;
   }
   const destination = navigator.determineDestinationFromAction(
@@ -93,7 +93,8 @@ function determineMovement(current, destination) {
 }
 
 // Updates a specific plane based on plane and navigation data and any command given
-function updatePlane(plane, navigator, latestCommand) {
+function updatePlane(planeData, navigator, latestCommand) {
+  const plane = planeData;
   handleATCCommand(latestCommand, plane, navigator);
 
   const yChange = determineMovement(plane.currentY, plane.destinationY);
@@ -105,7 +106,7 @@ function updatePlane(plane, navigator, latestCommand) {
 
   // TODO check for plane collision when on screen
 
-  if (plane.remainingFuel < 0) {
+  if (plane.remainingFuel <= 0) {
     plane.currentAction = 'crashed';
   }
 
@@ -124,28 +125,44 @@ function updatePlane(plane, navigator, latestCommand) {
 }
 
 // Updates each plane and broadcasts the update plane information
-function updatePlanes(broadcaster, navigator) {
-  planes.map(function(plane) {
+function updatePlanes(endgameFunction, broadcaster, navigator) {
+  planes = planes.map(function(plane) {
     const latestCommand = broadcaster.getLatestPlaneCommand(plane.planeName);
     const updatedPlane = updatePlane(plane, navigator, latestCommand);
-    broadcaster.broadcastPlanePosition(updatedPlane);
-    // TODO if plane is landed, remove maybe increment some counter.
-    // TODO if plane has crashed, end game
-    return plane;
+    if (updatedPlane.currentAction === 'landed') {
+      broadcaster.planeLanded();
+      return {};
+    }
+    if (updatedPlane.currentAction === 'crashed') {
+      broadcaster.planeCrashed();
+      endgameFunction();
+    }
+    return updatedPlane;
   });
+  // Remove any planes from our plane array that have landed (these are now empty objects)
+  planes = planes.filter((value) => Object.keys(value).length !== 0);
+  broadcaster.broadcastPlanePosition(planes);
 }
 
-// TODO
-export function openAirspace(broadcaster, navigator, planeGenFreqSec) {
-  // let newPlaneTimer = setInterval(() => generateNewPlane(), PLANE_GEN_FREQ_MS)
+// When called planes will start entering the airspace (be generated)
+export function openAirspace(broadcaster, navigator, planeGenFreqMS) {
+  // Generate a new plane every 'planeGenFreqMS'
+  const newPlaneTimer = setInterval(() => generateNewPlane(navigator), planeGenFreqMS);
+  // Update planes every 'broadcaster.broadcastFrequencyMS'
+  const updateInterval = setInterval(
+      () => {
+        const endgameFunction = () => {
+          clearInterval(newPlaneTimer);
+          clearInterval(updateInterval);
+        };
+        if (planes.length > 0) {
+          updatePlanes(endgameFunction, broadcaster, navigator);
+        }
+      },
+      broadcaster.broadcastFrequencyMS
+  );
   generateNewPlane(navigator);
-  const publishTimer = setInterval(() => updatePlanes(broadcaster, navigator), broadcaster.broadcastFrequencyMS);
-
-  // after 5 seconds stop
-  // setTimeout(() => {
-  //     clearInterval(newPlaneTimer)
-  //     console.log('No new planes')
-  // }, 5000)
+  updatePlanes(() => {}, broadcaster, navigator);
 }
 
 

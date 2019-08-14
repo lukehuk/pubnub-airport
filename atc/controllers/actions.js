@@ -19,6 +19,6 @@ export function issueCommand(command) {
   return {type: ISSUE_COMMAND, command};
 }
 
-export function updatePlane(plane) {
-  return {type: UPDATE_PLANE, plane};
+export function updatePlanes(planeData) {
+  return {type: UPDATE_PLANE, planes: planeData};
 }

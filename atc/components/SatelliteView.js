@@ -21,7 +21,7 @@ export default class SatelliteView extends Component {
   }
 
   generatePlaneDestinationMarker() {
-    if (this.props.selectedPlane !== '') {
+    if (this.props.isPlaneSelected) {
       return <PlaneDestinationMarker planeData={this.props.planes[this.props.selectedPlane]}/>;
     }
   }
@@ -40,6 +40,7 @@ export default class SatelliteView extends Component {
     return {
       onPlaneSelect: PropTypes.func,
       planes: PropTypes.object,
+      isPlaneSelected: PropTypes.bool,
       selectedPlane: PropTypes.string
     };
   }

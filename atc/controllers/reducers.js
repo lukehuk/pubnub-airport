@@ -13,9 +13,13 @@ function selectedPlane(state = '', action) {
 function planes(state = {}, action) {
   switch (action.type) {
     case UPDATE_PLANE:
-      return Object.assign({}, state.planes, {
-        [action.plane.planeName]: action.plane
+      console.log('state:', state);
+      const newData = {};
+      action.planes.forEach((plane) => {
+        newData[plane.planeName] = plane;
       });
+      console.log('newData:', newData);
+      return newData;
     default:
       return state;
   }
