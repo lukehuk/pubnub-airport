@@ -1,50 +1,64 @@
-# pubnub-airport
+# PubNub Airport
 
-Prerequisites
-	Node
-   npm install pubnub
-   npm install redux
-   npm install react-redux
+A project that demos PubNub and Javascript technologies through an air traffic control game.
 
-	file names are a mess
-	split index and app.js
+This repository contains two separate applications which both need to be run in order to play the game. Execution instructions are provided below.
 
-Airfield
- - Settings
- 	- Difficulty = Plane generation frequency = PGen
- 	- Announce frequency = AF
- 	- Tick frequency = T
- - Every PGen, spawn a plane
- - Every AF
- 	- Calulate plane position
- 	- Publish status of planes
- - On receive of commands update plane info
+This project comes with a four part blog series which can be accessed below. For additional support or guidance, please refer to these blogs:
+* Part 1: COMING SOON
+* Part 2: COMING SOON
+* Part 3: COMING SOON
+* Part 4: COMING SOON
 
-Both
- - Supported commands
- 	- Continue straight (Extend your downwind I'll call your base -> <Plane> Continuing downwind)
- 	- Enter traffic pattern (Enter left base for runway -> <Plane> Traffic in sight)
- 	- Leave airspace (Remain outside class delta -> <Plane> Keeping distance / <Plane> Negative, low on fuel)
- 	- Cleared to land - only when in final stage of traffic pattern (Cleared to land -> <Plane> Rodger, cleared to land)
+# Airfield
+The server-side component of the game that represents an airfield.
 
-ATC
- - Define map, draw grass, runway, traffic pattern, landing clearance zone
- - On receive of plane position, update plane states for redraw
- 	- Position, heading, fuel, name
- - Tap on plane to show/hide valid commands and chat
- - Clicking on command publishes message (contacting plane whilst waiting or show outmessage?)
+## Getting Started
+### Prerequisites
+This project requires:
+* Node.js (with NPM)
 
-Features to add/consider
- - Collision / Airfield shutdown
- - Score
- - Multi ATC support
- - Multi Airfield support
- 
- 
- 
- 
- t's finally happened: nearly 4 years after the import keyword was introduced in ES6, Node.js introduced experimental support for ES6 imports and exports. In Node.js 12, you can use import and export in your project if you do both of the below items.
- 
- 1) Add the --experimental-modules flag when running Node.js
- 
- 2) Use the .mjs extension or set "type": "module" in your package.json.
+### Installing
+In order to use the application you will need publisher and subscriber PubNub keys. Free registration is possible at [https://dashboard.pubnub.com/signup](https://dashboard.pubnub.com/signup) 
+
+The API keys should be added as the `PUBLISH_KEY` and `SUBSCRIBE_KEY` constants in airfield.js.
+
+You will also need to ensure that dependent modules are installed. You can do this by running `npm install` in the airfield directory.
+
+Execution behaviour, such as plane generation frequency, can be modified by adjusting constants within the project files.
+
+### Running
+The application can be started by running `node airfield.js --experimental-modules` in the airfield directory.
+
+*Note: The application is written using ES6 modules. At the time of writing the latest version of Node.js requires the "--experimental-modules" flag to be present. It is possible that in subsequent versions of Node this flag is no longer required.* 
+
+# ATC
+The client-side component of the game that represents an airfield.
+
+## Getting Started
+### Prerequisites
+TODO
+
+### Installing
+In order to use the application you will need publisher and subscriber PubNub keys. Free registration is possible at [https://dashboard.pubnub.com/signup](https://dashboard.pubnub.com/signup) 
+
+The API keys should be added as the `PUBLISH_KEY` and `SUBSCRIBE_KEY` constants in App.js.
+
+You will also need to ensure that dependent modules are installed. You can do this by running `npm install` in the atc directory.
+
+TODO
+
+### Running
+The application can be started by running `expo start` in the atc directory.
+
+TODO
+
+## Built With
+* [PubNub](https://www.pubnub.com/) - Realtime messaging platform 
+* [Node.js](https://nodejs.org/) - A JavaScript runtime
+* [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [React Native](https://facebook.github.io/react-native) - JavaScript library for building user interfaces 
+* [Redux](https://redux.js.org/introduction/getting-started) - A predictable state container for JavaScript apps
+
+## License
+This project is licensed under the Apache-2.0 License
