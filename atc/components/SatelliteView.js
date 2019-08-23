@@ -5,6 +5,7 @@ import Airfield from './Airfield';
 import PropTypes from 'prop-types';
 import PlaneDestinationMarker from './PlaneDestinationMarker';
 
+// Container component for the main play area. Generates plane components for each plane object
 export default class SatelliteView extends Component {
   generatePlaneList(planeNames) {
     const planeList = [];
@@ -20,6 +21,7 @@ export default class SatelliteView extends Component {
     return planeList;
   }
 
+  // Only generate a plane destination marker if a plane is selected
   generatePlaneDestinationMarker() {
     if (this.props.isPlaneSelected) {
       return <PlaneDestinationMarker planeData={this.props.planes[this.props.selectedPlane]}/>;

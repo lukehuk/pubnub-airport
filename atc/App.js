@@ -13,7 +13,6 @@ const PUBLISH_KEY = '';
 const SUBSCRIBE_KEY = '';
 
 export default function App() {
-  // TODO investigate
   YellowBox.ignoreWarnings(['Setting a timer']);
   const _console = {...console};
   console.warn = (message) => {
@@ -22,6 +21,7 @@ export default function App() {
     }
   };
 
+  // Declare new state variable 'isLoadingComplete', default to false, set with 'setLoadingComplete'
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   const store = createStore(atcApp);
@@ -29,7 +29,7 @@ export default function App() {
   const broadcaster = Broadcaster.init({
     publishKey: PUBLISH_KEY,
     subscribeKey: SUBSCRIBE_KEY,
-    store
+    dispatch: store.dispatch
   });
 
 
@@ -37,11 +37,12 @@ export default function App() {
     return (
       <AppLoading
         startAsync={loadAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
+        onError={(error) => console.warn(error)}
+        onFinish={() => setLoadingComplete(true)}
       />
     );
   } else {
+    // Hide device status bar (where clock, signal strength etc shown), create game screen component
     return (
       <Provider store={store}>
         <View style={styles.container}>
@@ -53,6 +54,7 @@ export default function App() {
   }
 }
 
+// Load all game images
 async function loadAsync() {
   await Promise.all([
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT),
@@ -68,20 +70,10 @@ async function loadAsync() {
   ]);
 }
 
-function handleLoadingError(error) {
-  // In this case, you might want to report the error to your error reporting
-  // service, for example Sentry
-  console.warn(error);
-}
-
-function handleFinishLoading(setLoadingComplete) {
-  setLoadingComplete(true);
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
   },

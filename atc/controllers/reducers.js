@@ -1,6 +1,8 @@
-import {SELECT_PLANE, UPDATE_PLANE} from './actions';
+import {NEW_GAME_EVENT, SELECT_PLANE, UPDATE_PLANES} from './actions';
 import {combineReducers} from 'redux';
 
+
+// Reducer to handle a plane selection action
 function selectedPlane(state = '', action) {
   switch (action.type) {
     case SELECT_PLANE:
@@ -10,16 +12,25 @@ function selectedPlane(state = '', action) {
   }
 }
 
+// Reducer to handle new plane data being received
 function planes(state = {}, action) {
   switch (action.type) {
-    case UPDATE_PLANE:
-      console.log('state:', state);
+    case UPDATE_PLANES:
       const newData = {};
       action.planes.forEach((plane) => {
         newData[plane.planeName] = plane;
       });
-      console.log('newData:', newData);
       return newData;
+    default:
+      return state;
+  }
+}
+
+// Reducer to handle new plane data being received
+function gameStatus(state = {score: 0, crashed: false}, action) {
+  switch (action.type) {
+    case NEW_GAME_EVENT:
+      return action.event;
     default:
       return state;
   }
@@ -27,7 +38,8 @@ function planes(state = {}, action) {
 
 const atcApp = combineReducers({
   selectedPlane,
-  planes
+  planes,
+  gameStatus
 });
 
 export default atcApp;

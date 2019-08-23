@@ -1,7 +1,7 @@
 // Actions
 export const SELECT_PLANE = 'SELECT_PLANE';
-export const ISSUE_COMMAND = 'ISSUE_COMMAND';
-export const UPDATE_PLANE = 'UPDATE_PLANE';
+export const UPDATE_PLANES = 'UPDATE_PLANES';
+export const NEW_GAME_EVENT = 'NEW_GAME_EVENT';
 
 export const PLANE_COMMANDS = {
   DOWNWIND: 'DOWNWIND',
@@ -15,10 +15,10 @@ export function selectPlane(planeName) {
   return {type: SELECT_PLANE, planeName};
 }
 
-export function issueCommand(command) {
-  return {type: ISSUE_COMMAND, command};
+export function updatePlanes(planeData) {
+  return {type: UPDATE_PLANES, planes: planeData};
 }
 
-export function updatePlanes(planeData) {
-  return {type: UPDATE_PLANE, planes: planeData};
+export function newGameEvent(eventDetails) {
+  return {type: NEW_GAME_EVENT, event: eventDetails};
 }

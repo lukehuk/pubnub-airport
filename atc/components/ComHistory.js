@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 
+// Renders a communication history area
 export default class ComHistory extends Component {
   render() {
     return (
@@ -30,11 +31,10 @@ const styles = StyleSheet.create({
   comHistory: {
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: 'black'
+    borderBottomColor: '#000000'
   },
   content: {
-    flex: 6,
-    width: 33
+    flex: 6
   },
   title: {
     fontWeight: 'bold',

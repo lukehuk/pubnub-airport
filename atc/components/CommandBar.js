@@ -4,6 +4,7 @@ import CommandButton from './CommandButton';
 import {PLANE_COMMANDS} from '../controllers/actions';
 import PropTypes from 'prop-types';
 
+// Defines the images to be used in the command button components
 const images = {
   leftArrow: {
     uri: require('../assets/images/arrow-left.png')
@@ -19,6 +20,8 @@ const images = {
   },
 };
 
+// Renders a command bar on the right hand side of the screen. Is a container component for
+// the different command buttons that the player can interact with
 export default class CommandBar extends Component {
   render() {
     const commandsDisabled = !this.props.planeSelected;
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
   commandBar: {
     flex: 1,
     flexDirection: 'column',
-    borderLeftColor: 'black',
+    borderLeftColor: '#000000',
     borderLeftWidth: 1,
   },
   commandButton: {
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   separator: {
-    borderBottomColor: 'black',
+    borderBottomColor: '#000000',
     borderBottomWidth: 1,
   }
 });

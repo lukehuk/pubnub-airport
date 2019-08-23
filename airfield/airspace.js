@@ -104,8 +104,6 @@ function updatePlane(planeData, navigator, latestCommand) {
   plane.currentY = plane.currentY + yChange;
   plane.remainingFuel = plane.remainingFuel - Math.abs(xChange) - Math.abs(yChange);
 
-  // TODO check for plane collision when on screen
-
   if (plane.remainingFuel <= 0) {
     plane.currentAction = 'crashed';
   }

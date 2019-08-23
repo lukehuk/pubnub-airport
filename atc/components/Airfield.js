@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 
+// Component renders a runway and traffic pattern
 export default class Airfield extends Component {
   render() {
     return (
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     marginRight: '12%',
     top: '20%',
     borderWidth: 3,
-    borderColor: 'black',
+    borderColor: '#000000',
     borderRadius: 5,
     borderStyle: 'dashed'
   },
@@ -47,12 +48,12 @@ const styles = StyleSheet.create({
     left: '33%',
     width: '45%',
     height: '12%',
-    backgroundColor: 'black',
+    backgroundColor: '#000000',
     borderRadius: 2,
   },
   runwayPaint: {
     marginTop: '6%',
-    borderColor: 'white',
+    borderColor: '#ffffff',
     borderWidth: 2,
     borderRadius: 5,
     borderStyle: 'dashed'

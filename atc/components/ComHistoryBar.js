@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import ComHistory from './ComHistory';
 import PropTypes from 'prop-types';
 
+// Defines the images to be used in the communication history components
 const images = {
   incomingCall: {
     uri: require('../assets/images/incoming-call.png')
@@ -12,6 +13,8 @@ const images = {
   }
 };
 
+// Renders a communication history bar at the top of the game screen. The area consists of both the
+// previous plane and previous atc transmission histories
 export default class ComHistoryBar extends Component {
   render() {
     return (
@@ -45,7 +48,7 @@ export default class ComHistoryBar extends Component {
 
 const styles = StyleSheet.create({
   separator: {
-    borderRightColor: 'black',
+    borderRightColor: '#000000',
     borderRightWidth: 1,
   }
 });

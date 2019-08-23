@@ -56,6 +56,8 @@ function getLatestPlaneCommand(planeName) {
   return latestCommand;
 }
 
+// Init function that creates a PubNub instance and returns an object with callable functions
+// Config object expected to contain PubNub API keys and broadcast frequency (in MS)
 export function init(config) {
   const pubnub = new PubNub({
     publishKey: config.publishKey,
@@ -64,7 +66,6 @@ export function init(config) {
 
   pubnub.addListener({
     message: (message) => {
-      console.log(message.message);
       receivedPlaneCommands[message.message.planeName] = message.message.command;
     },
   });

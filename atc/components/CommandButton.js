@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, TouchableNativeFeedback, View} from 'react-native';
 import PropTypes from 'prop-types';
 
+// Renders a single command button. If no plane is selected the button will be disabled
 export default class CommandButton extends Component {
   render() {
     const commandOpacity = this.props.disabled ? 0.3 : 1;
 
     return (
-      <View style={{flex: 1, width: '100%', flexDirection: 'column', backgroundColor: 'yellow'}}>
+      <View style={{flex: 1, width: '100%', flexDirection: 'column'}}>
         <TouchableNativeFeedback
           onPress={this.props.onPress}
           disabled={this.props.disabled}>

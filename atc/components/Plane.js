@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
+// Renders a single plane at its current location. Plane name and fuel level are also displayed.
+// If the plane is selected it will render differently.
 export default class Plane extends Component {
   onPlanePressed() {
     this.props.onPlaneSelect(this.props.planeName);
@@ -9,17 +11,11 @@ export default class Plane extends Component {
 
   render() {
     const plane = this.props.planeData;
-    const planeColor = this.props.planeSelected ? 'yellow' : 'grey';
+    const planeColor = this.props.planeSelected ? '#ffcc00' : '#808080';
     const fuelPercent = Math.floor((plane.remainingFuel / plane.fuelCapacity) * 100);
     const left = plane.currentX;
     const top = plane.currentY;
     const opacity = plane.currentAction === 'landing' ? plane.currentX / plane.destinationX : 1;
-
-    // console.log("PLANE PROPS")
-    // console.log(this.props)
-    console.log('CURRENT X:' + plane.currentX + ' Y:' + plane.currentY);
-    console.log('DESTINATION X:' + plane.destinationX + ' Y:' + plane.destinationY);
-    console.log('ACTION: ' + plane.currentAction);
 
     return (
       <TouchableOpacity
@@ -63,23 +59,25 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   planeName: {
+    width: 35,
     fontSize: 8,
+    textAlign: 'center'
   },
   fuelIndicator: {
-    backgroundColor: 'grey',
+    backgroundColor: '#808080',
     width: 30,
     height: 3,
     marginTop: 2
   },
   fuelLevel: {
-    backgroundColor: 'red',
+    backgroundColor: '#ff0000',
     width: '50%',
     height: '100%',
   },
   plane: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#ffcc00',
     borderRadius: 30,
-    borderColor: 'grey',
+    borderColor: '#808080',
     borderWidth: 3,
     width: '100%',
     height: '100%',
