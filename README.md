@@ -1,4 +1,6 @@
 # PubNub Airport
+![React Native Airport Game Screen Recording](./react-native-airport-game-screen-recording.gif "React Native Airport Game Screen Recording")
+
 
 A project that demos PubNub and Javascript technologies through an air traffic control game.
 
