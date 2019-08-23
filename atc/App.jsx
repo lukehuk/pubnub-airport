@@ -12,6 +12,8 @@ import {YellowBox} from 'react-native';
 const PUBLISH_KEY = '';
 const SUBSCRIBE_KEY = '';
 
+// Entrypoint into the application.
+// Creates the Redux store, initializes PubNub, loads resources and renders the game.
 export default function App() {
   YellowBox.ignoreWarnings(['Setting a timer']);
   const _console = {...console};

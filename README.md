@@ -44,7 +44,7 @@ TODO
 ### Installing
 In order to use the application you will need publisher and subscriber PubNub keys. Free registration is possible at [https://dashboard.pubnub.com/signup](https://dashboard.pubnub.com/signup) 
 
-The API keys should be added as the `PUBLISH_KEY` and `SUBSCRIBE_KEY` constants in App.js.
+The API keys should be added as the `PUBLISH_KEY` and `SUBSCRIBE_KEY` constants in App.jsx.
 
 You will also need to ensure that dependent modules are installed. You can do this by running `npm install` in the atc directory.
 
