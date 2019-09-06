@@ -30,7 +30,7 @@ You will also need to ensure that dependent modules are installed. You can do th
 Execution behaviour, such as plane generation frequency, can be modified by adjusting constants within the project files.
 
 ### Running
-The application can be started by running `node airfield.js --experimental-modules` in the airfield directory.
+The application can be started by running `node --experimental-modules airfield.js` in the airfield directory.
 
 *Note: The application is written using ES6 modules. At the time of writing the latest version of Node.js requires the "--experimental-modules" flag to be present. It is possible that in subsequent versions of Node this flag is no longer required.* 
 
