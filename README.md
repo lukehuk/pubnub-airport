@@ -2,7 +2,7 @@
 ![React Native Airport Game Screen Recording](./react-native-airport-game-screen-recording.gif "React Native Airport Game Screen Recording")
 
 
-A project that demos PubNub and JavasScript technologies through an air traffic control game.
+A project that demos PubNub and JavaScript technologies through an air traffic control game.
 
 This repository contains two separate applications which both need to be run in order to play the game. Execution instructions are provided below.
 
