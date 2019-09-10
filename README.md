@@ -40,7 +40,7 @@ The client-side component of the game that represents an airfield.
 ## Getting Started
 
 ### Installing
-In order to use the application you will need publisher and subscriber PubNub keys. Free registration is possible at [https://dashboard.pubnub.com/signup](https://dashboard.pubnub.com/signup) 
+In order to use the application you will need publisher and subscriber PubNub keys. Free registration is possible at [https://dashboard.pubnub.com/signup](https://dashboard.pubnub.com/signup?devrel_gh=luke) 
 
 The API keys should be added as the `PUBLISH_KEY` and `SUBSCRIBE_KEY` constants in `App.jsx`.
 
